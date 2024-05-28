@@ -1,7 +1,8 @@
-from core_app.models import Base
-from sqlalchemy import Column, Integer, String, Boolean, DefaultClause
+from sqlalchemy import Boolean, Column, DefaultClause, Integer, String
 from sqlalchemy.sql import func
 from sqlalchemy.types import DateTime
+
+from core_app.models import Base
 
 
 class UserModel(Base):
@@ -13,4 +14,6 @@ class UserModel(Base):
     user_password = Column("password", String)
     is_active = Column(Boolean, DefaultClause("1"), nullable=False)
     created_at = Column(DateTime, DefaultClause(func.now()), nullable=True)
-    updated_at = Column(DateTime, DefaultClause(func.now(), for_update=True), nullable=True)
+    updated_at = Column(
+        DateTime, DefaultClause(func.now(), for_update=True), nullable=True
+    )

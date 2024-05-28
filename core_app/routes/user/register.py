@@ -1,13 +1,12 @@
 from flask import request
 from flask_restful import Resource
 
-from core_app.models.user.user_model import UserModel
 from core_app.models import session
+from core_app.models.user.user_model import UserModel
 from core_app.utils.users import str_to_hash
 
 
 class Register(Resource):
-
     def post(self):
         payload = request.get_json()
 
@@ -15,11 +14,7 @@ class Register(Resource):
         email = payload.get("email")
         password = str_to_hash(payload.get("password"))
 
-        user = UserModel(
-            user_name=name,
-            user_email=email,
-            user_password=password
-        )
+        user = UserModel(user_name=name, user_email=email, user_password=password)
         session.add(user)
         session.commit()
 

@@ -1,7 +1,8 @@
 import os
+
 import sqlalchemy
-from sqlalchemy.ext.declarative import declarative_base
 from dotenv import find_dotenv, load_dotenv
+from sqlalchemy.ext.declarative import declarative_base
 
 load_dotenv(find_dotenv())
 
@@ -17,10 +18,7 @@ engine_setup_string = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGR
 
 print(engine_setup_string)
 
-engine = sqlalchemy.create_engine(
-    engine_setup_string,
-    echo=True
-)
+engine = sqlalchemy.create_engine(engine_setup_string, echo=True)
 
 # Define and create the table
 Base = declarative_base()

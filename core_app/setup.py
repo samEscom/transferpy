@@ -1,9 +1,9 @@
+import json
+from datetime import datetime
 from http import HTTPStatus
+
 from flask import Flask
 from flask_restful import Api
-from datetime import datetime
-
-import json
 
 from core_app.routes import apis, blueprints
 
@@ -24,7 +24,13 @@ def create_app(name):
 def add_json_representation(app, api):
     @api.representation("application/json")
     def output_json(data, code, headers=None):
-        if code in (HTTPStatus.BAD_REQUEST.value, HTTPStatus.UNAUTHORIZED.value, HTTPStatus.FORBIDDEN.value, HTTPStatus.NOT_FOUND.value, HTTPStatus.INTERNAL_SERVER_ERROR.value):
+        if code in (
+            HTTPStatus.BAD_REQUEST.value,
+            HTTPStatus.UNAUTHORIZED.value,
+            HTTPStatus.FORBIDDEN.value,
+            HTTPStatus.NOT_FOUND.value,
+            HTTPStatus.INTERNAL_SERVER_ERROR.value,
+        ):
             response_format = json.dumps({"error": data, "time": str(datetime.now())})
         else:
             response_format = json.dumps({"data": data, "time": str(datetime.now())})

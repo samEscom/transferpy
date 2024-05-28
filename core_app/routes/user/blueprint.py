@@ -1,8 +1,8 @@
 from flask import Blueprint
 from flask_restful import Api
 
-from core_app.routes.user.register import Register
 from core_app.routes.user.login import Login
+from core_app.routes.user.register import Register
 
 user_blueprint = Blueprint("user", __name__, url_prefix="/user")
 user_api = Api(user_blueprint)

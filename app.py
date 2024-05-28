@@ -1,5 +1,6 @@
-from core_app.setup import create_app
 from flask_jwt_extended import JWTManager
+
+from core_app.setup import create_app
 
 app = create_app(__name__)
 
