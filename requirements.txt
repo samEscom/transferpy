@@ -1,0 +1,9 @@
+flask==3.0.3
+flask-restful==0.3.9
+sqlalchemy==2.0.30
+cryptography==42.0.7
+flask-jwt-extended==4.6.0
+python-dotenv==0.21.0
+simplejson==3.17.6
+Flask-SQLAlchemy==3.1.1
+psycopg2-binary==2.9.9
