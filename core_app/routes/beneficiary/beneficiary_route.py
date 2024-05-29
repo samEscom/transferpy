@@ -18,7 +18,7 @@ class Beneficiary(Resource):
             full_name=full_name,
             gender_id=gender_id,
             relationship_id=relationship_id,
-            date_of_birthday=date_of_birthday
+            date_of_birthday=date_of_birthday,
         )
 
         session.add(beneficiary)

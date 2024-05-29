@@ -1,10 +1,10 @@
 from sqlalchemy import Boolean, Column, DefaultClause, Integer, String
+from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from sqlalchemy.types import DateTime
-from sqlalchemy.orm import relationship
 
 from core_app.models import Base
-from core_app.models.user.user_info import UserInfoModel # noqa
+from core_app.models.user.user_info import UserInfoModel  # noqa
 
 
 class UserModel(Base):
@@ -20,4 +20,4 @@ class UserModel(Base):
         DateTime, DefaultClause(func.now(), for_update=True), nullable=True
     )
 
-    user_info = relationship('UserInfoModel')
+    user_info = relationship("UserInfoModel")

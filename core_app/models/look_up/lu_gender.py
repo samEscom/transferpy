@@ -15,4 +15,3 @@ class LuGender(Base):
     updated_at = Column(
         DateTime, DefaultClause(func.now(), for_update=True), nullable=True
     )
-

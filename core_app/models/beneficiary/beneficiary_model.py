@@ -1,11 +1,11 @@
 from sqlalchemy import Boolean, Column, Date, DefaultClause, ForeignKey, Integer, String
+from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from sqlalchemy.types import DateTime
-from sqlalchemy.orm import relationship
 
 from core_app.models import Base
-from core_app.models.look_up.lu_gender import LuGender  #noqa
-from core_app.models.look_up.lu_relationship import LuRelationship  #noqa
+from core_app.models.look_up.lu_gender import LuGender  # noqa
+from core_app.models.look_up.lu_relationship import LuRelationship  # noqa
 
 
 class BeneficiaryModel(Base):
@@ -13,7 +13,7 @@ class BeneficiaryModel(Base):
 
     id = Column(Integer, primary_key=True)
     full_name = Column(String)
-    gender_id = Column(Integer, ForeignKey('lu_gender.id'))
+    gender_id = Column(Integer, ForeignKey("lu_gender.id"))
     relationship_id = Column(Integer, ForeignKey("lu_relationship.id"))
     date_of_birthday = Column(Date)
 
@@ -23,5 +23,5 @@ class BeneficiaryModel(Base):
         DateTime, DefaultClause(func.now(), for_update=True), nullable=True
     )
 
-    gender = relationship('LuGender')
+    gender = relationship("LuGender")
     relationship_beneficiary = relationship("LuRelationship")

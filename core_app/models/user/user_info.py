@@ -10,7 +10,7 @@ class UserInfoModel(Base):
 
     user_info_id = Column("id", Integer, primary_key=True)
 
-    user_app_id = Column(Integer, ForeignKey('user_app.id'))
+    user_app_id = Column(Integer, ForeignKey("user_app.id"))
     user_info_fullname = Column("full_name", String)
     user_info_address = Column("address", String)
     user_info_phone_number = Column("phone_number", String)
