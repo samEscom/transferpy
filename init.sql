@@ -84,7 +84,7 @@ INSERT INTO lu_transfer_status (status) VALUES ('cancelada');
 DROP TABLE IF EXISTS transfer;
 CREATE TABLE transfer (
     id SERIAL PRIMARY KEY,
-    user_info_id INTEGER NOT NULL,
+    user_app_id INTEGER NOT NULL,
     beneficiary_id INTEGER NOT NULL,
     amount NUMERIC NOT NULL,
     date_of_transfer DATE NOT NULL,
@@ -92,7 +92,7 @@ CREATE TABLE transfer (
     is_active SMALLINT DEFAULT 1,
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP,
-    FOREIGN KEY (user_info_id) REFERENCES user_info(id),
+    FOREIGN KEY (user_app_id) REFERENCES user_app(id),
     FOREIGN KEY (beneficiary_id) REFERENCES beneficiary(id),
     FOREIGN KEY (status_id) REFERENCES lu_transfer_status(id)
 );
