@@ -1,4 +1,12 @@
-from sqlalchemy import Boolean, Column, Date, DefaultClause, ForeignKey, Integer, String
+from sqlalchemy import (
+    Column,
+    Date,
+    DefaultClause,
+    ForeignKey,
+    Integer,
+    SmallInteger,
+    String,
+)
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from sqlalchemy.types import DateTime
@@ -17,7 +25,7 @@ class BeneficiaryModel(Base):
     relationship_id = Column(Integer, ForeignKey("lu_relationship.id"))
     date_of_birthday = Column(Date)
 
-    is_active = Column(Boolean, DefaultClause("1"), nullable=False)
+    is_active = Column(SmallInteger, DefaultClause("1"), nullable=False)
     created_at = Column(DateTime, DefaultClause(func.now()), nullable=True)
     updated_at = Column(
         DateTime, DefaultClause(func.now(), for_update=True), nullable=True

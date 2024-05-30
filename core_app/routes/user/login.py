@@ -16,7 +16,11 @@ class Login(Resource):
 
         user: UserModel = (
             session.query(UserModel)
-            .filter(UserModel.user_email == email, UserModel.user_password == password)
+            .filter(
+                UserModel.user_email == email,
+                UserModel.user_password == password,
+                UserModel.is_active == 1,
+            )
             .first()
         )
 
