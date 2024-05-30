@@ -1,4 +1,11 @@
-from sqlalchemy import Boolean, Column, DefaultClause, ForeignKey, Integer, String
+from sqlalchemy import (
+    Column,
+    DefaultClause,
+    ForeignKey,
+    Integer,
+    SmallInteger,
+    String,
+)
 from sqlalchemy.sql import func
 from sqlalchemy.types import DateTime
 
@@ -14,7 +21,7 @@ class UserInfoModel(Base):
     user_info_fullname = Column("full_name", String)
     user_info_address = Column("address", String)
     user_info_phone_number = Column("phone_number", String)
-    is_active = Column(Boolean, DefaultClause("1"), nullable=False)
+    is_active = Column(SmallInteger, DefaultClause("1"), nullable=False)
     created_at = Column(DateTime, DefaultClause(func.now()), nullable=True)
     updated_at = Column(
         DateTime, DefaultClause(func.now(), for_update=True), nullable=True
