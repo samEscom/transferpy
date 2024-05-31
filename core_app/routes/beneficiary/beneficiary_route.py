@@ -1,13 +1,12 @@
 from flask import request
+from flask_jwt_extended import jwt_required
 from flask_restful import Resource
 
 from core_app.models.beneficiary.beneficiary_model import BeneficiaryModel
 from core_app.queries.beneficiary import BeneficiaryQueries
-from flask_jwt_extended import jwt_required
 
 
 class Beneficiary(Resource):
-
     @jwt_required()
     def post(self):
         payload = request.get_json()

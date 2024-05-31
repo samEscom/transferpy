@@ -1,11 +1,4 @@
-from sqlalchemy import (
-    Column,
-    DefaultClause,
-    ForeignKey,
-    Integer,
-    SmallInteger,
-    String,
-)
+from sqlalchemy import Column, DefaultClause, ForeignKey, Integer, SmallInteger, String
 from sqlalchemy.sql import func
 from sqlalchemy.types import DateTime
 

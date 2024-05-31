@@ -4,10 +4,7 @@ from tests.routes.constants import UserTest
 
 def test_fail_login(client):
     response = client.post(
-        "user/login", json={
-            "email": "fail@fail.com",
-            "password": "1234"
-        }
+        "user/login", json={"email": "fail@fail.com", "password": "1234"}
     )
 
     assert response.status_code == 200
@@ -24,7 +21,7 @@ def test_user_register_and_good_login(client):
             "fullname": UserTest.fullname,
             "address": UserTest.address,
             "phone_number": UserTest.phone_number,
-        }
+        },
     )
 
     assert response.status_code == 200
@@ -39,7 +36,7 @@ def test_user_register_and_good_login(client):
         json={
             "email": UserTest.email,
             "password": UserTest.password,
-        }
+        },
     )
 
     assert response.status_code == 200

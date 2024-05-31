@@ -1,16 +1,15 @@
 from typing import List, Optional
 
 from flask import request
+from flask_jwt_extended import get_jwt_identity, jwt_required
 from flask_restful import Resource
 
 from core_app.models.transfer.transfer_model import TransferModel
 from core_app.queries.transfer import TransferQueries
 from core_app.utils.constants import TRANSFER_STATUS_DEFAULT
-from flask_jwt_extended import jwt_required, get_jwt_identity
 
 
 class Transfer(Resource):
-
     @jwt_required()
     def post(self, id: Optional[int] = None):
         payload = request.get_json()

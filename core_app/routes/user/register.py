@@ -3,9 +3,9 @@ from flask_restful import Resource
 
 from core_app.models.user.user_info import UserInfoModel
 from core_app.models.user.user_model import UserModel
-from core_app.utils.users import str_to_hash
 from core_app.queries.user_app import UserAppQueries
 from core_app.queries.user_info import UserInfoQueries
+from core_app.utils.users import str_to_hash
 
 
 class Register(Resource):
