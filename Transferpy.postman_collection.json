@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "bbec5c7d-bd60-4b89-8d3d-edd4a23cb1d6",
+		"_postman_id": "8b3506dd-dc5c-4f9a-91d8-86060fc0b46f",
 		"name": "Transferpy",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
-		"_exporter_id": "7687290"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32956512"
 	},
 	"item": [
 		{
@@ -23,7 +23,16 @@
 								}
 							}
 						},
-						"url": "127.0.0.1:8000/user/register"
+						"url": {
+							"raw": "{{url}}/user/register",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"register"
+							]
+						}
 					},
 					"response": []
 				}
@@ -36,7 +45,13 @@
 					"name": "add",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"uuid": "2e3834ee-7e93-4ef8-9ec5-5e771daaae82"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"fullname\": \"John Doe\",\n    \"genderId\": 1,\n    \"relationshipId\": 1,\n    \"dateOfBirthday\": \"1990-01-01\"\n}",
@@ -46,7 +61,15 @@
 								}
 							}
 						},
-						"url": "127.0.0.1:8000/beneficiary"
+						"url": {
+							"raw": "{{url}}/beneficiary",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"beneficiary"
+							]
+						}
 					},
 					"response": []
 				}
@@ -59,17 +82,31 @@
 					"name": "add",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"uuid": "5e6703fd-96a3-4630-b9cb-314c31681b10"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"userId\": 1,\n    \"beneficiaryId\": 1,\n    \"amount\": 120.99,\n    \"transferDate\": \"2024-06-04\"\n}",
+							"raw": "{\n    \"beneficiaryId\": 1,\n    \"amount\": 120.99,\n    \"transferDate\": \"2024-06-04\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "127.0.0.1:8000/transfer"
+						"url": {
+							"raw": "{{url}}/transfer",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"transfer"
+							]
+						}
 					},
 					"response": []
 				},
@@ -77,8 +114,23 @@
 					"name": "delete",
 					"request": {
 						"method": "DELETE",
-						"header": [],
-						"url": "127.0.0.1:8000/transfer/1"
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"uuid": "4ba6ec6f-bc66-44ce-8811-d1ab419f90b3"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/transfer/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"transfer",
+								"1"
+							]
+						}
 					},
 					"response": []
 				},
@@ -86,7 +138,13 @@
 					"name": "update",
 					"request": {
 						"method": "PATCH",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"uuid": "ed2bd794-e3f6-48a1-aaa0-73ff51b69def"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"beneficiaryId\": 1,\n    \"amount\": 120.99,\n    \"transferDate\": \"2024-06-04\",\n    \"statusId\": 2\n}",
@@ -96,7 +154,16 @@
 								}
 							}
 						},
-						"url": "127.0.0.1:8000/transfer/1"
+						"url": {
+							"raw": "{{url}}/transfer/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"transfer",
+								"1"
+							]
+						}
 					},
 					"response": []
 				},
@@ -104,8 +171,22 @@
 					"name": "get",
 					"request": {
 						"method": "GET",
-						"header": [],
-						"url": "127.0.0.1:8000/transfer/1"
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"uuid": "5117c94c-19e1-464a-809c-576ba037673e"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/transfer",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"transfer"
+							]
+						}
 					},
 					"response": []
 				}
@@ -116,7 +197,19 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": "127.0.0.1:8000/health-check"
+				"url": {
+					"raw": "127.0.0.1:8000/health-check",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"health-check"
+					]
+				}
 			},
 			"response": []
 		},
@@ -134,9 +227,52 @@
 						}
 					}
 				},
-				"url": "127.0.0.1:8000/user/login"
+				"url": {
+					"raw": "{{url}}/user/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user",
+						"login"
+					]
+				}
 			},
 			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "127.0.0.1:8000",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcxNzExNTc1MiwianRpIjoiYzVmMTRkNTMtOGYxOC00ZmFiLWE4ZWQtNzg1YzIwYTA2ZWQ0IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNzE3MTE1NzUyLCJjc3JmIjoiYjJmY2EwMDEtNWYwYS00ODk4LTk5YzgtZGU5YjYyNzhiYmRhIiwiZXhwIjoxNzE3MTIxMTUyfQ.FXheBzVc9D4gBUwCq5PEW3yu5itpIkoBUlJKaNZpb_I",
+			"type": "string"
 		}
 	]
 }

@@ -4,7 +4,7 @@ export TEST?=./tests
 export REPO=transferpy
 export ENV?=dev
 
-install_local:
+install-local:
 	@( \
 		if [ ! -d .venv ]; then python3 -m venv .venv; fi; \
 		source .venv/bin/activate; \
@@ -35,18 +35,28 @@ lint-fix:
 
 tests:
 	@python -B -m pytest -l --color=yes \
-		--cov=src \
+		--cov=core_app \
 		--cov-config=./tests/.coveragerc \
 		--cov-report term \
 		--cov-report html:coverage \
 		--junit-xml=junit.xml \
 		--rootdir=. $${TEST};
 
+tests-local:
+	@docker compose up -d db-testing;
+	@python -B -m pytest -l --color=yes \
+		--cov=core_app \
+		--cov-config=./tests/.coveragerc \
+		--cov-report term \
+		--cov-report html:coverage \
+		--junit-xml=junit.xml \
+		--rootdir=. $${TEST};
+	@docker compose down
 
-run_local:
+
+run-local:
 	@docker compose up -d db_dev;
 	@source .venv/bin/activate;
 	@python app.py;
 
-
-.PHONY: tests docs
+.PHONY: tests tests_local docs

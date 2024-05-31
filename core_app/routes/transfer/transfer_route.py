@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import List, Optional
 
 from flask import request
 from flask_restful import Resource
@@ -6,23 +6,26 @@ from flask_restful import Resource
 from core_app.models.transfer.transfer_model import TransferModel
 from core_app.queries.transfer import TransferQueries
 from core_app.utils.constants import TRANSFER_STATUS_DEFAULT
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 
 class Transfer(Resource):
+
+    @jwt_required()
     def post(self, id: Optional[int] = None):
         payload = request.get_json()
 
         if id is not None:
             raise RuntimeError("No operation allowed")
 
-        user = payload.get("userId")
+        user_id = get_jwt_identity()
         beneficiary = payload.get("beneficiaryId")
         amount = payload.get("amount")
         transfer_date = payload.get("transferDate")
 
-        transfer = TransferQueries.add_record(
+        transfer: TransferModel = TransferQueries.add_record(
             TransferModel(
-                user_id=user,
+                user_id=user_id,
                 beneficiary_id=beneficiary,
                 status_id=TRANSFER_STATUS_DEFAULT,
                 amount=amount,
@@ -38,10 +41,11 @@ class Transfer(Resource):
             "status": transfer.status_id,
         }
 
+    @jwt_required()
     def get(self, id: Optional[int] = None):
 
         if id is not None:
-            transfer = TransferQueries.get(id)
+            transfer: TransferModel = TransferQueries.get(id)
             return {
                 "id": transfer.id,
                 "amount": str(transfer.amount),
@@ -62,7 +66,7 @@ class Transfer(Resource):
                 "isActive": transfer.is_active,
             }
 
-        all_transfer = TransferQueries.find(None).all()
+        all_transfer: List[TransferModel] = TransferQueries.find(None).all()
 
         return [
             {
@@ -87,12 +91,13 @@ class Transfer(Resource):
             for transfer in all_transfer
         ]
 
+    @jwt_required()
     def patch(self, id: Optional[int] = None):
 
         if id is None:
             raise RuntimeError("Operation not allowed")
 
-        transfer = TransferQueries.get(int(id))
+        transfer: TransferModel = TransferQueries.get(int(id))
 
         payload = request.get_json()
 
@@ -113,7 +118,7 @@ class Transfer(Resource):
         if status_id is not None:
             transfer.status_id = status_id
 
-        transfer_updated = TransferQueries.update(transfer)
+        transfer_updated: TransferModel = TransferQueries.update(transfer)
         return {
             "id": transfer_updated.id,
             "amount": str(transfer_updated.amount),
@@ -134,12 +139,13 @@ class Transfer(Resource):
             "isActive": transfer_updated.is_active,
         }
 
+    @jwt_required()
     def delete(self, id: Optional[int] = None):
 
         if id is None:
             raise RuntimeError("Operation not allowed")
 
-        transfer = TransferQueries.get(int(id))
+        transfer: TransferModel = TransferQueries.get(int(id))
         transfer.is_active = 0
 
         return {"isActive": TransferQueries.update(transfer).is_active}
