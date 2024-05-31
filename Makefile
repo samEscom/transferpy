@@ -40,6 +40,7 @@ tests:
 	@cp .env.back .env && rm .env.back;
 
 tests-local:
+	@cp .env .env.back && cp .env.local .env;
 	@docker compose up -d db-testing;
 	@python -B -m pytest -l --color=yes \
 		--cov=core_app \
@@ -49,6 +50,7 @@ tests-local:
 		--junit-xml=junit.xml \
 		--rootdir=. $${TEST};
 	@docker compose down;
+	@cp .env.back .env && rm .env.back;
 
 app-dev:
 	@cp .env .env.back && cp .env.dev .env;
