@@ -1,6 +1,8 @@
 services:
   db_dev:
-    image: postgres:15
+    build:
+      context: .
+      dockerfile: db/testing/Dockerfile
     environment:
       POSTGRES_DB: transfer-db
       POSTGRES_PASSWORD: secret
@@ -9,11 +11,36 @@ services:
     ports:
       - 5432:5432
   db-testing:
-    image: postgres:15
+    build:
+      context: .
+      dockerfile: db/testing/Dockerfile
     environment:
       POSTGRES_DB: transfer-db
       POSTGRES_PASSWORD: secret
-    volumes:
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - 5432:5432
+  app-dev:
+    build:
+      context: .
+      dockerfile: deploy/dev/Dockerfile
+    volumes:
+      - .:/app
+    ports:
+      - 8000:8000
+    environment:
+      - ENV=dev
+    depends_on:
+      - db_dev
+  test:
+    build:
+      context: .
+      dockerfile: deploy/testing/Dockerfile
+    stdin_open: true
+    environment:
+      - ENV=dev
+    tty: true
+    command: sh -c "python -B -m pytest -l --color=yes --cov=core_app --cov-config=./tests/.coveragerc --cov-report term --cov-report html:coverage --junit-xml=junit.xml --rootdir=. ./tests"
+    volumes:
+      - .:/app
+    depends_on:
+      - db-testing
