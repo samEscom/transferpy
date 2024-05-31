@@ -1,11 +1,14 @@
 from flask import request
 from flask_restful import Resource
 
-from core_app.models import session
 from core_app.models.beneficiary.beneficiary_model import BeneficiaryModel
+from core_app.queries.beneficiary import BeneficiaryQueries
+from flask_jwt_extended import jwt_required
 
 
 class Beneficiary(Resource):
+
+    @jwt_required()
     def post(self):
         payload = request.get_json()
 
@@ -14,15 +17,14 @@ class Beneficiary(Resource):
         relationship_id = payload.get("relationshipId")
         date_of_birthday = payload.get("dateOfBirthday")
 
-        beneficiary = BeneficiaryModel(
-            full_name=full_name,
-            gender_id=gender_id,
-            relationship_id=relationship_id,
-            date_of_birthday=date_of_birthday,
+        beneficiary: BeneficiaryModel = BeneficiaryQueries.add_record(
+            BeneficiaryModel(
+                full_name=full_name,
+                gender_id=gender_id,
+                relationship_id=relationship_id,
+                date_of_birthday=date_of_birthday,
+            )
         )
-
-        session.add(beneficiary)
-        session.commit()
 
         return {
             "id": beneficiary.id,

@@ -8,3 +8,12 @@ services:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - 5432:5432
+  db-testing:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: transfer-db
+      POSTGRES_PASSWORD: secret
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - 5432:5432
