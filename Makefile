@@ -5,13 +5,7 @@ export REPO=transferpy
 export ENV?=dev
 
 install-local:
-	@( \
-		if [ ! -d .venv ]; then python3 -m venv .venv; fi; \
-		source .venv/bin/activate; \
-		pip install -qU pip; \
-		pip install -r requirements-dev.txt; \
-		pip install -r requirements.txt; \
-	)
+	uv sync --all-groups
 
 setup:
 	@if [ ! -f .env ] ; then cp .env.mock .env ; fi;
@@ -60,7 +54,6 @@ app-dev:
 run-local:
 	@cp .env .env.back && cp .env.local .env;
 	@docker compose up -d db_dev;
-	@source .venv/bin/activate;
-	@python app.py;
+	@uv run app.py;
 
 .PHONY: tests tests_local docs
