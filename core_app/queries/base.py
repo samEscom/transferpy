@@ -1,18 +1,20 @@
-from typing import ClassVar, Generic, Optional, Type, TypeVar, Union
+from typing import ClassVar, Generic, TypeVar
 
-from core_app.models import Base as BaseModel
-from core_app.models import session
+from core_app.models import (
+    Base as BaseModel,
+    session,
+)
 
 BASE_MODEL_TYPE = TypeVar("BASE_MODEL_TYPE", bound=BaseModel)
 T = TypeVar("T", bound=BaseModel)
-Simple_PK = Union[int, str]
+Simple_PK = int | str
 
 
 class BaseQueryBuilder(Generic[T]):
-    __model__: ClassVar = Type[BaseModel]
+    __model__: ClassVar = type[BaseModel]
 
     @classmethod
-    def get(cls, primary_key: Simple_PK) -> Optional[T]:
+    def get(cls, primary_key: Simple_PK) -> T | None:
         return session.query(cls.__model__).get(primary_key)
 
     @classmethod

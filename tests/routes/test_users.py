@@ -1,4 +1,3 @@
-from tests.routes.client import client
 from tests.routes.constants import UserTest
 
 
