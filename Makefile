@@ -11,21 +11,13 @@ setup:
 	@if [ ! -f .env ] ; then cp .env.mock .env ; fi;
 	@make install;
 
-autoflake:
-	@autoflake . --check --recursive --remove-all-unused-imports --remove-unused-variables --exclude .venv;
-
-black:
-	@black . --check --exclude '.venv|build|target|dist|.cache|node_modules';
-
-isort:
-	@isort . --check-only;
-
-lint: black isort autoflake
+lint: 
+	@uv run ruff check .
+	@uv run ruff format --check .
 
 lint-fix:
-	@black . --exclude '.venv|build|target|dist';
-	@isort .;
-	@autoflake . --in-place --recursive --exclude .venv --remove-all-unused-imports --remove-unused-variables;
+	@uv run ruff check . --fix
+	@uv run ruff format .
 
 tests:
 	@cp .env .env.back && cp .env.test .env;

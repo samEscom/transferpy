@@ -1,5 +1,3 @@
-from typing import List, Optional
-
 from flask import request
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from flask_restful import Resource
@@ -11,7 +9,7 @@ from core_app.utils.constants import TRANSFER_STATUS_DEFAULT
 
 class Transfer(Resource):
     @jwt_required()
-    def post(self, id: Optional[int] = None):
+    def post(self, id: int | None):
         payload = request.get_json()
 
         if id is not None:
@@ -41,8 +39,7 @@ class Transfer(Resource):
         }
 
     @jwt_required()
-    def get(self, id: Optional[int] = None):
-
+    def get(self, id: int | None):
         if id is not None:
             transfer: TransferModel = TransferQueries.get(id)
             return {
@@ -65,7 +62,7 @@ class Transfer(Resource):
                 "isActive": transfer.is_active,
             }
 
-        all_transfer: List[TransferModel] = TransferQueries.find(None).all()
+        all_transfer: list[TransferModel] = TransferQueries.find(None).all()
 
         return [
             {
@@ -91,8 +88,7 @@ class Transfer(Resource):
         ]
 
     @jwt_required()
-    def patch(self, id: Optional[int] = None):
-
+    def patch(self, id: int | None):
         if id is None:
             raise RuntimeError("Operation not allowed")
 
@@ -139,8 +135,7 @@ class Transfer(Resource):
         }
 
     @jwt_required()
-    def delete(self, id: Optional[int] = None):
-
+    def delete(self, id: int | None):
         if id is None:
             raise RuntimeError("Operation not allowed")
 
